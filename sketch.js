@@ -8,9 +8,9 @@ let coordy = [];
 const prevbtn = document.getElementById("prev");
 const nextbtn = document.getElementById("next");
 let index = 0;
+drawing2.reverse();
 drawing7.reverse();
 drawing8.reverse();
-drawing2.reverse();
 let alldrawing = [
   drawing0,
   drawing1,
@@ -22,6 +22,7 @@ let alldrawing = [
   drawing7,
   drawing8,
   drawing9,
+  drawing10,
 ];
 nextbtn.addEventListener("click", (e) => {
   e.preventDefault();
@@ -146,11 +147,12 @@ function drawArrow(xold, yold, x, y, scal) {
 
 function drawcircles(x, y, l, freq) {
   // if (freq % 2 == 1 && l != 0) {
-    stroke(179,229,255);
+    stroke(56,112,140);
+    // stroke(102,204,255);
   // } else {
   //   stroke(80);
   // }
   noFill();
-  strokeWeight(2);
+  strokeWeight(1);
   circle(x, y, 2 * l);
 }
