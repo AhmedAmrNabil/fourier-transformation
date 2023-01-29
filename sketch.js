@@ -74,6 +74,8 @@ function reset() {
   fourier = dft(X);
   fourier.sort((a, b) => b.amp - a.amp);
 }
+
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
   reset();
@@ -94,11 +96,11 @@ function epicycles(fourier, t, path) {
   let x = width / 2;
   let y = height / 2;
   fourier.forEach((cycle) => {
-    const omega = TWO_PI * cycle.freq;
+    const w = TWO_PI * cycle.freq;
     let xold = x;
     let yold = y;
-    x += cycle.amp * cos(omega * t + cycle.phase);
-    y += cycle.amp * sin(omega * t + cycle.phase);
+    x += cycle.amp * cos(w * t + cycle.phase);
+    y += cycle.amp * sin(w * t + cycle.phase);
     drawArrow(xold, yold, x, y, cycle.amp);
     drawcircles(xold, yold, cycle.amp, cycle.freq);
   });
@@ -146,12 +148,12 @@ function drawArrow(xold, yold, x, y, scal) {
 }
 
 function drawcircles(x, y, l, freq) {
-  // if (freq % 2 == 1 && l != 0) {
+  if (freq % 2 == 1 && l != 0) {
     stroke(56,112,140);
     // stroke(102,204,255);
-  // } else {
-  //   stroke(80);
-  // }
+  } else {
+    stroke(80);
+  }
   noFill();
   strokeWeight(1);
   circle(x, y, 2 * l);

@@ -2,7 +2,7 @@ html,
 body {
   margin: 0;
   padding: 0;
-  background-color: black;
+  background-color: rgb(200,200,200);
 }
 
 canvas {
@@ -15,7 +15,6 @@ canvas {
   font-size: large;
   font-family: "Be Vietnam Pro";
   color: black;
-  background-color: rgb(200);
 }
 .container {
   width: 100%;
