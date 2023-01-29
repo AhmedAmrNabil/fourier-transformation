@@ -14,8 +14,8 @@ canvas {
   position: relative;
   font-size: large;
   font-family: "Be Vietnam Pro";
-  color: white;
-  background-color: black;
+  color: black;
+  background-color: rgb(180);
 }
 .container {
   width: 100%;

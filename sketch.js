@@ -80,7 +80,7 @@ function setup() {
 
 function draw() {
   frameRate(144);
-  background(0);
+  background(200);
   epicycles(fourier, t, path);
   t += 1 / fourier.length;
   if (t >= 1) {
@@ -94,12 +94,12 @@ function epicycles(fourier, t, path) {
   let y = height / 2;
   fourier.forEach((cycle) => {
     const omega = TWO_PI * cycle.freq;
-    drawcircles(x, y, cycle.amp, cycle.freq);
     let xold = x;
     let yold = y;
     x += cycle.amp * cos(omega * t + cycle.phase);
     y += cycle.amp * sin(omega * t + cycle.phase);
     drawArrow(xold, yold, x, y, cycle.amp);
+    drawcircles(xold, yold, cycle.amp, cycle.freq);
   });
   path.push(createVector(x, y));
   if (path.length >= X.length - 100) {
@@ -108,10 +108,10 @@ function epicycles(fourier, t, path) {
 }
 
 function drawpath(t) {
-  stroke(221, 209, 0);
+  stroke(20);
   strokeWeight(2);
   // fill(221, 209, 0);
-  let f = 1 - t;
+  // let f = 1 - t;
   // for (let i = 1; i < path.length; i++) {
   //   stroke((221 * i * 2) / path.length, (209 * i * 2) / path.length, 0);
   //   line(path[i].x, path[i].y, path[i - 1].x, path[i - 1].y);
@@ -129,7 +129,7 @@ function drawArrow(xold, yold, x, y, scal) {
   v = createVector(x - xold, y - yold);
   v.mult(0.99);
   push();
-  fill(200);
+  fill(20);
   translate(x, y);
   rotate(v.heading());
   strokeWeight(0);
@@ -137,7 +137,7 @@ function drawArrow(xold, yold, x, y, scal) {
   pop();
 
   push();
-  stroke(200);
+  stroke(20);
   strokeWeight(2);
   translate(xold, yold);
   line(0, 0, v.x, v.y);
@@ -145,11 +145,11 @@ function drawArrow(xold, yold, x, y, scal) {
 }
 
 function drawcircles(x, y, l, freq) {
-  if (freq % 2 == 1 && l != 0) {
-    stroke(27, 69, 84);
-  } else {
-    stroke(84);
-  }
+  // if (freq % 2 == 1 && l != 0) {
+    stroke(179,229,255);
+  // } else {
+  //   stroke(80);
+  // }
   noFill();
   strokeWeight(2);
   circle(x, y, 2 * l);
