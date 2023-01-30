@@ -51,6 +51,8 @@ function reset() {
   path = [];
   coordx = [];
   coordy = [];
+  let avgx = 0;
+  let avgy = 0;
   drawing = alldrawing[index];
   for (let i = 0; i < drawing.length; i += 8) {
     let x = drawing[floor(i)][0];
@@ -61,17 +63,15 @@ function reset() {
   }
   coordx.sort((a, b) => a - b);
   coordy.sort((a, b) => a - b);
-  const scaley = (windowHeight * 0.9) / (coordy[coordy.length - 1] - coordy[0]);
-  const scalex = (windowWidth * 0.9) / (coordx[coordx.length - 1] - coordx[0]);
-  scale = scalex > scaley ? scaley : scalex;
-
+  const scaley = (windowHeight * 0.8) / (coordy[coordy.length - 1] - coordy[0]);
+  const scalex = (windowWidth * 0.8) / (coordx[coordx.length - 1] - coordx[0]);
+  scale = scalex < scaley ? scalex : scaley;
+  avgx = (coordx[coordx.length - 1] + coordx[0]) / 2;
+  avgy = (coordy[coordy.length - 1] + coordy[0]) / 2;
   X.forEach((vector) => {
-    vector.x -= (coordx[coordx.length - 1] + coordx[0]) / 2;
-    vector.y -= (coordy[coordy.length - 1] + coordy[0]) / 2;
-    vector.x *= scale;
-    vector.y *= scale;
+    vector.add(createVector(-avgx, -avgy));
+    vector.mult(scale);
   });
-
   fourier = dft(X);
   fourier.sort((a, b) => b.amp - a.amp);
 }
@@ -108,11 +108,11 @@ function epicycles(fourier, t, path) {
   if (path.length >= 0.8 * X.length) {
     path.shift();
   }
-  drawpath(t,path);
+  drawpath(path);
 }
 
-function drawpath(t,path) {
-  stroke(220,210,0);
+function drawpath(path) {
+  stroke(220, 210, 0);
   strokeWeight(2);
   noFill();
   beginShape();
@@ -129,16 +129,18 @@ function drawArrow(xold, yold, x, y, scal) {
   v.mult(0.99);
   push();
   colorMode(HSB);
-  fill(200, 0.9);
+  fill(200, 0.8);
   translate(x, y);
   rotate(v.heading());
   strokeWeight(0);
   triangle(-0.6 * scal, -0.3 * scal, 0, 0, -0.6 * scal, 0.3 * scal);
   pop();
+
   push();
   colorMode(HSB);
+  strokeCap(ROUND);
   stroke(200, 0.7);
-  strokeWeight(2);
+  strokeWeight(2.5);
   translate(xold, yold);
   line(0, 0, v.x, v.y);
   pop();

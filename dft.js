@@ -9,13 +9,12 @@ function expo(phi) {
   const res = createVector(cos(phi), -sin(phi));
   return res;
 }
-
 function dft(x) {
   let X = [];
   const N = x.length;
   for (let k = 0; k < N; k++) {
     let sum = createVector(0, 0);
-    const w = 2 * PI * k;
+    const w = TWO_PI * k;
     for (let n = 0; n < N; n++) {
       const phi = (w * n) / N;
       sum.add(multi(x[n], expo(phi)));
