@@ -1,25 +1,28 @@
 function multi(a, b) {
-  const c = createVector(a.x * b.x - a.y * b.y, a.y * b.x + b.y * a.x);
+  const re = a.x * b.x - a.y * b.y;
+  const im = a.y * b.x + a.x * b.y;
+  const c = createVector(re, im);
   return c;
 }
 
-function dft(X) {
-  let converted = [];
-  const N = X.length;
+function expo(phi) {
+  const res = createVector(cos(phi), -sin(phi));
+  return res;
+}
+
+function dft(x) {
+  let X = [];
+  const N = x.length;
   for (let k = 0; k < N; k++) {
     let sum = createVector(0, 0);
     const w = 2 * PI * k;
     for (let n = 0; n < N; n++) {
-      const phi = w * n / N;
-      const exp = createVector(cos(phi), -sin(phi));
-      const mult = multi(X[n], exp);
-      sum.add(mult.x, mult.y);
+      const phi = (w * n) / N;
+      const mult = multi(x[n], expo(phi));
+      sum.add(mult);
     }
-    sum.mult(1/N)
-    freq = k;
-    amp = sqrt(sum.x * sum.x + sum.y * sum.y);
-    phase = atan2(sum.y, sum.x);
-    converted.push({ freq: freq, amp: amp, phase: phase });
+    sum.mult(1 / N);
+    X.push({ freq: k, amp: sum.mag(), phase: sum.heading() });
   }
-  return converted;
+  return X;
 }

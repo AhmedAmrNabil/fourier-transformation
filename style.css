@@ -12,10 +12,18 @@ canvas {
   width: 80px;
   height: 50px;
   position: relative;
-  font-size: large;
+  font-size: 15pt;
   font-family: "Be Vietnam Pro";
-  color: black;
+  color: white;
+  background-color: black;
+  border: none;
+  transition: all 10ms ease-in-out;
+  opacity: 20%;
 }
+.button:hover{
+  opacity: 80%;
+}
+
 .container {
   width: 100%;
   top: calc(100% - 50px);
