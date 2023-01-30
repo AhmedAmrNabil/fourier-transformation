@@ -18,8 +18,7 @@ function dft(x) {
     const w = 2 * PI * k;
     for (let n = 0; n < N; n++) {
       const phi = (w * n) / N;
-      const mult = multi(x[n], expo(phi));
-      sum.add(mult);
+      sum.add(multi(x[n], expo(phi)));
     }
     sum.mult(1 / N);
     X.push({ freq: k, amp: sum.mag(), phase: sum.heading() });
