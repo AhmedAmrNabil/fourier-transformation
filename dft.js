@@ -1,4 +1,4 @@
-function multi(a, b) {
+function complexMult(a, b) {
   const re = a.x * b.x - a.y * b.y;
   const im = a.y * b.x + a.x * b.y;
   const c = createVector(re, im);
@@ -17,7 +17,7 @@ function dft(x) {
     const w = TWO_PI * k;
     for (let n = 0; n < N; n++) {
       const phi = (w * n) / N;
-      sum.add(multi(x[n], expo(phi)));
+      sum.add(complexMult(x[n], expo(phi)));
     }
     sum.mult(1 / N);
     X.push({ freq: k, amp: sum.mag(), phase: sum.heading() });
