@@ -9,6 +9,7 @@ const prevbtn = document.getElementById("prev");
 const nextbtn = document.getElementById("next");
 let index = 0;
 let a = 0;
+let grey = false;
 drawing2.reverse();
 drawing7.reverse();
 drawing8.reverse();
@@ -146,12 +147,17 @@ function drawArrow(xold, yold, x, y, scal) {
   pop();
 }
 
-function drawcircles(x, y, l) {
+function drawcircles(x, y, l, freq) {
   push();
   colorMode(HSB);
-  stroke(196, 68, 33, 0.7);
+  if (grey) {
+    stroke(0, 0, 33, 0.8);
+  } else {
+    stroke(196, 68, 33, 0.8);
+  }
   noFill();
   strokeWeight(2);
   circle(x, y, 2 * l);
+  grey = !grey
   pop();
 }
