@@ -2,29 +2,29 @@ let t = 0;
 let fourier = [];
 let X = [];
 let path = [];
-let scale = 0;
+let scaleVal = 0;
 let coordx = [];
 let coordy = [];
 const prevbtn = document.getElementById("prev");
 const nextbtn = document.getElementById("next");
 let index = 0;
 let a = 0;
-let grey = false;
-drawing2.reverse();
-drawing7.reverse();
-drawing8.reverse();
+let greyBool = false;
+flower.reverse();
+stonksman.reverse();
+stonkswomen.reverse();
 let alldrawing = [
-  drawing10,
-  drawing0,
-  drawing1,
-  drawing2,
-  drawing3,
-  drawing4,
-  drawing5,
-  drawing6,
-  drawing7,
-  drawing8,
-  drawing9,
+  flower,
+  josephFourier,
+  bike,
+  codingtrain,
+  github,
+  sad,
+  bike2,
+  beach,
+  nokia,
+  stonksman,
+  stonkswomen,
 ];
 nextbtn.addEventListener("click", (e) => {
   e.preventDefault();
@@ -35,6 +35,7 @@ nextbtn.addEventListener("click", (e) => {
   }
   reset();
 });
+
 prevbtn.addEventListener("click", (e) => {
   e.preventDefault();
   if (index > 0) {
@@ -44,7 +45,15 @@ prevbtn.addEventListener("click", (e) => {
   }
   reset();
 });
-
+function keyPressed() {
+  const options = {
+    delay: fourier.length,
+    units: "frames",
+  };
+  if (key === "s") {
+    saveGif("mySketch", fourier.length, options);
+  }
+}
 function reset() {
   t = 0;
   fourier = [];
@@ -54,6 +63,7 @@ function reset() {
   coordy = [];
   let avgx = 0;
   let avgy = 0;
+  let greyBool = false;
   drawing = alldrawing[index];
   for (let i = 0; i < drawing.length; i += 8) {
     let x = drawing[floor(i)][0];
@@ -66,12 +76,12 @@ function reset() {
   coordy.sort((a, b) => a - b);
   const scaley = (windowHeight * 0.8) / (coordy[coordy.length - 1] - coordy[0]);
   const scalex = (windowWidth * 0.8) / (coordx[coordx.length - 1] - coordx[0]);
-  scale = scalex < scaley ? scalex : scaley;
   avgx = (coordx[coordx.length - 1] + coordx[0]) / 2;
   avgy = (coordy[coordy.length - 1] + coordy[0]) / 2;
+  scaleVal = scalex < scaley ? scalex : scaley;
   X.forEach((vector) => {
     vector.add(createVector(-avgx, -avgy));
-    vector.mult(scale);
+    vector.mult(scaleVal);
   });
   fourier = dft(X);
   fourier.sort((a, b) => b.amp - a.amp);
@@ -150,7 +160,7 @@ function drawArrow(xold, yold, x, y, scal) {
 function drawcircles(x, y, l, freq) {
   push();
   colorMode(HSB);
-  if (grey) {
+  if (greyBool) {
     stroke(0, 0, 33, 0.8);
   } else {
     stroke(196, 68, 33, 0.8);
@@ -158,6 +168,6 @@ function drawcircles(x, y, l, freq) {
   noFill();
   strokeWeight(2);
   circle(x, y, 2 * l);
-  grey = !grey
+  greyBool = !greyBool;
   pop();
 }
