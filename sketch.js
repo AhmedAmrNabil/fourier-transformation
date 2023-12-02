@@ -65,7 +65,7 @@ function reset() {
   let avgy = 0;
   let greyBool = false;
   drawing = alldrawing[index];
-  for (let i = 0; i < drawing.length; i += 8) {
+  for (let i = 0; i < drawing.length; i += 4) {
     let x = drawing[floor(i)][0];
     let y = drawing[floor(i)][1];
     coordx.push(x);
